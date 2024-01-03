@@ -1,9 +1,8 @@
 import Feed from "@components/Feed";
 
-const Page = () => {
-  return (
-    <section className="w-full flex-center flex-col">
-      <h1 className='head_text text-center'>
+const Home = () => (
+  <section className='w-full flex-center flex-col'>
+    <h1 className='head_text text-center'>
       Discover & Share
       <br className='max-md:hidden' />
       <span className='orange_gradient text-center'> AI-Powered Prompts</span>
@@ -13,9 +12,8 @@ const Page = () => {
       discover, create and share creative prompts
     </p>
 
-    <Feed/>
-    </section>
-  )
-}
+    <Feed />
+  </section>
+);
 
-export default Page
+export default Home;
