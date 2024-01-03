@@ -6,6 +6,9 @@ import { useState, useEffect } from "react"
 
 const Nav = () => {
   const isUserLoggenIn = true;
+
+  const [toggleDropDown, setToggleDropDown] = useState(false);
+
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
       <Link href='/' className='flex gap-2 flex-center'>
@@ -27,9 +30,9 @@ const Nav = () => {
               Create Post
             </Link>
 
-            <button type='button' className='outline_btn'>
+            <Link href='/' className='outline_btn'>
               Sign Out
-            </button>
+            </Link>
 
             <Link href='/profile'>
               <Image
@@ -43,14 +46,10 @@ const Nav = () => {
           </div>
           ) : (
             <>
-              { providers &&
-                Object.values(providers).map((provider) => (
+              { Object.values(items).map((item) => (
                   <button
                     type='button'
-                    key={provider.name}
-                    onClick={() => {
-                      signIn(provider.id);
-                    }}
+                    key={item.name}
                     className='black_btn'
                   >
                     Sign in
@@ -59,6 +58,63 @@ const Nav = () => {
             </>
           )}
         </div>
+
+        {/* Mobile Navigation */}
+      <div className='sm:hidden flex relative'>
+        { isUserLoggenIn ? (
+          <div className='flex'>
+            <Image
+              src= "/assets/images/logo.svg"
+              width={37}
+              height={37}
+              className='rounded-full'
+              alt='profile'
+              onClick={() => setToggleDropDown((prev) => !prev)}
+            />
+
+            {toggleDropDown && (
+              <div className='dropdown'>
+                <Link
+                  href='/profile'
+                  className='dropdown_link'
+                  onClick={() => setToggleDropDown(false)}
+                >
+                  My Profile
+                </Link>
+                <Link
+                  href='/create-prompt'
+                  className='dropdown_link'
+                  onClick={() => setToggleDropDown(false)}
+                >
+                  Create Prompt
+                </Link>
+                <button
+                  type='button'
+                  onClick={() => {
+                    setToggleDropDown(false);
+                  }}
+                  className='mt-5 w-full black_btn'
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <>
+            { Object.values(items).map((item) => (
+                <button
+                  type='button'
+                  key={item.name}
+                  className='black_btn'
+                >
+                  Sign in
+                </button>
+              ))}
+          </>
+        )}
+      </div>
+
     </nav>
   )
 }
